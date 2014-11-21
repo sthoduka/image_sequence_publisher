@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package>
+  <name>image_sequence_publisher</name>
+  <version>0.1.0</version>
+  <description>Publishes a set of images to ros image topic at a specified rate</description>
+  <maintainer email="santosh.thoduka@gmail.com">Santosh Thoduka</maintainer>
+
+  <license>MIT</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>roscpp</build_depend>
+
+</package>

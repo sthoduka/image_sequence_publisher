@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<launch>
+    <node pkg="image_sequence_publisher" type="image_sequence_publisher" name="image_sequence_publisher" output="screen" respawn="false">
+        <param name="input_dir" value="$(arg input_dir)" />
+        <param name="frame_rate" value="1.0" />
+    </node>
+</launch>
