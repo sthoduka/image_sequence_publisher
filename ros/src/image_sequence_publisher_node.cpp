@@ -34,11 +34,11 @@ void ImageSequencePublisherNode::publish_images(const bfs::path &image_directory
     }
     if (!bfs::is_directory(image_directory))
     {
-        ROS_ERROR("%s is not a directory.", image_directory.string().c_str());
+        ROS_ERROR("%s is not a directory", image_directory.string().c_str());
         return;
     }
 
-    ROS_INFO("Starting publishing images");
+    ROS_INFO("Started publishing images");
     int number_of_frames = 0;
 
     ros::Rate loop_rate(frame_rate);
