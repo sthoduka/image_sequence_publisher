@@ -38,30 +38,37 @@ void ImageSequencePublisherNode::publish_images(const bfs::path &image_directory
         return;
     }
 
-    ROS_INFO("Started publishing images");
     int number_of_frames = 0;
 
-    ros::Rate loop_rate(frame_rate);
-
+    std::set<std::string> sorted_paths;
     bfs::directory_iterator end;
     for (bfs::directory_iterator iter(image_directory); iter != end; ++iter)
     {
         if (!bfs::is_directory(*iter))
         {
-            cv::Mat frame = cv::imread(iter->path().string(), CV_LOAD_IMAGE_COLOR);
-            if (!frame.data)
-            {
-                ROS_WARN("%s is not an image file", iter->path().string().c_str());
-                continue;
-            }
-
-            number_of_frames++;
-            cv_bridge::CvImage frame_msg;
-            frame_msg.encoding = sensor_msgs::image_encodings::BGR8;
-            frame_msg.image = frame;
-            image_publisher_.publish(frame_msg.toImageMsg());
-            loop_rate.sleep();
+            sorted_paths.insert(iter->path().string());
         }
+    }
+
+    ROS_INFO("Started publishing images");
+    ros::Rate loop_rate(frame_rate);
+
+    std::set<std::string>::iterator iter;
+    for (iter = sorted_paths.begin(); iter != sorted_paths.end(); ++iter)
+    {
+        cv::Mat frame = cv::imread(*iter, CV_LOAD_IMAGE_COLOR);
+        if (!frame.data)
+        {
+            ROS_WARN("%s is not an image file", iter->c_str());
+            continue;
+        }
+
+        number_of_frames++;
+        cv_bridge::CvImage frame_msg;
+        frame_msg.encoding = sensor_msgs::image_encodings::BGR8;
+        frame_msg.image = frame;
+        image_publisher_.publish(frame_msg.toImageMsg());
+        loop_rate.sleep();
     }
 
     ROS_INFO("Number of frames processed: %i", number_of_frames);
