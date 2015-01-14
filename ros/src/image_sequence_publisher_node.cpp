@@ -1,3 +1,11 @@
+/* image_sequence_publisher_node.cpp
+ *
+ * Copyright (C) 2014 Santosh Thoduka
+ *
+ * This software may be modified and distributed under the terms
+ * of the MIT license.  See the LICENSE file for details.
+ */
+
 #include <image_sequence_publisher/image_sequence_publisher_node.h>
 #include <sensor_msgs/image_encodings.h>
 #include <opencv2/opencv.hpp>
